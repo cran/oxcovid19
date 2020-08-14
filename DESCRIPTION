@@ -1,7 +1,7 @@
 Package: oxcovid19
 Type: Package
 Title: An R API to the Oxford COVID-19 Database
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(person(given = "Ernest", family = "Guevarra", 
                     email = "ernest@guevarra.io", role = c("aut", "cre"),
                     comment = c(ORCID = "0000-0002-4887-4415")),
@@ -12,7 +12,9 @@ Authors@R: c(person(given = "Ernest", family = "Guevarra",
              person(given = "Robert", family = "Medina", 
                     email = "jcmedina1@up.edu.ph",
                     role = "aut",
-                    comment = c(ORCID = "0000-0001-6647-5453")))
+                    comment = c(ORCID = "0000-0001-6647-5453")),
+             person(given = "Alexander", family = "Zarebski",
+                    role = "aut"))
 Description: The OxCOVID19 Project <https://covid19.eng.ox.ac.uk> aims to increase
     our understanding of the COVID-19 pandemic and elaborate possible strategies
     to reduce the impact on the society through the combined power of statistical,
@@ -34,10 +36,11 @@ BugReports: https://github.com/como-ph/oxcovid19/issues
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-07-14 11:38:12 UTC; ernest
+Packaged: 2020-08-12 12:12:25 UTC; ernest
 Author: Ernest Guevarra [aut, cre] (<https://orcid.org/0000-0002-4887-4415>),
   Chris Mercado [aut] (<https://orcid.org/0000-0002-5588-9543>),
-  Robert Medina [aut] (<https://orcid.org/0000-0001-6647-5453>)
+  Robert Medina [aut] (<https://orcid.org/0000-0001-6647-5453>),
+  Alexander Zarebski [aut]
 Maintainer: Ernest Guevarra <ernest@guevarra.io>
 Repository: CRAN
-Date/Publication: 2020-07-16 10:10:03 UTC
+Date/Publication: 2020-08-14 11:10:03 UTC

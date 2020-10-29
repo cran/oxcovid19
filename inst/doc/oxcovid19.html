@@ -30,6 +30,54 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -341,16 +389,16 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 #&gt; # Database: postgres [covid19@covid19db.org:5432/covid19]
 #&gt;    source date       country countrycode adm_area_1 adm_area_2 adm_area_3 tested
 #&gt;    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;       &lt;int&gt;
-#&gt;  1 GBR_P… 2020-07-22 United… GBR         England    Worcester… Bromsgrove     NA
-#&gt;  2 GBR_P… 2020-07-01 United… GBR         England    Worcester… Wyre Fore…     NA
-#&gt;  3 GBR_P… 2020-07-23 United… GBR         England    Leicester  Leicester      NA
-#&gt;  4 GBR_P… 2020-07-01 United… GBR         England    West Suss… Horsham        NA
-#&gt;  5 GBR_P… 2020-07-01 United… GBR         England    Blackburn… Blackburn…     NA
-#&gt;  6 GBR_P… 2020-06-30 United… GBR         England    Dudley     Dudley         NA
-#&gt;  7 GBR_P… 2020-07-01 United… GBR         England    Leicester… Harborough     NA
-#&gt;  8 GBR_P… 2020-07-01 United… GBR         England    Leicester… Charnwood      NA
-#&gt;  9 GBR_P… 2020-07-01 United… GBR         England    Blackpool  Blackpool      NA
-#&gt; 10 GBR_P… 2020-06-30 United… GBR         England    West Berk… West Berk…     NA
+#&gt;  1 GBR_P… 2020-05-23 United… GBR         England    Hampshire  &lt;NA&gt;           NA
+#&gt;  2 GBR_P… 2020-05-23 United… GBR         England    Kent       &lt;NA&gt;           NA
+#&gt;  3 GBR_P… 2020-05-23 United… GBR         England    Essex      &lt;NA&gt;           NA
+#&gt;  4 GBR_P… 2020-05-23 United… GBR         England    Hertfords… &lt;NA&gt;           NA
+#&gt;  5 GBR_P… 2020-05-23 United… GBR         England    Leicester… &lt;NA&gt;           NA
+#&gt;  6 GBR_P… 2020-05-23 United… GBR         England    Norfolk    &lt;NA&gt;           NA
+#&gt;  7 GBR_P… 2020-05-23 United… GBR         England    Glouceste… &lt;NA&gt;           NA
+#&gt;  8 GBR_P… 2020-05-23 United… GBR         England    Cambridge… &lt;NA&gt;           NA
+#&gt;  9 GBR_P… 2020-05-23 United… GBR         England    Derbyshire &lt;NA&gt;           NA
+#&gt; 10 GBR_P… 2020-05-23 United… GBR         England    Westminst… &lt;NA&gt;           NA
 #&gt; # … with more rows, and 7 more variables: confirmed &lt;int&gt;, recovered &lt;int&gt;,
 #&gt; #   dead &lt;int&gt;, hospitalised &lt;int&gt;, hospitalised_icu &lt;int&gt;, quarantined &lt;int&gt;,
 #&gt; #   gid &lt;chr&gt;</code></pre>
@@ -365,16 +413,16 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; # Database: postgres [covid19@covid19db.org:5432/covid19]</span></span>
 <span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt;    source date       country countrycode adm_area_1 adm_area_2 adm_area_3 tested</span></span>
 <span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;       &lt;int&gt;</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;  1 GBR_P… 2020-07-22 United… GBR         England    Worcester… Bromsgrove     NA</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;  2 GBR_P… 2020-07-01 United… GBR         England    Worcester… Wyre Fore…     NA</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;  3 GBR_P… 2020-07-23 United… GBR         England    Leicester  Leicester      NA</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt;  4 GBR_P… 2020-07-01 United… GBR         England    West Suss… Horsham        NA</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;  5 GBR_P… 2020-07-01 United… GBR         England    Blackburn… Blackburn…     NA</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt;  6 GBR_P… 2020-06-30 United… GBR         England    Dudley     Dudley         NA</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt;  7 GBR_P… 2020-07-01 United… GBR         England    Leicester… Harborough     NA</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt;  8 GBR_P… 2020-07-01 United… GBR         England    Leicester… Charnwood      NA</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt;  9 GBR_P… 2020-07-01 United… GBR         England    Blackpool  Blackpool      NA</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; 10 GBR_P… 2020-06-30 United… GBR         England    West Berk… West Berk…     NA</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;  1 GBR_P… 2020-05-23 United… GBR         England    Hampshire  &lt;NA&gt;           NA</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;  2 GBR_P… 2020-05-23 United… GBR         England    Kent       &lt;NA&gt;           NA</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;  3 GBR_P… 2020-05-23 United… GBR         England    Essex      &lt;NA&gt;           NA</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt;  4 GBR_P… 2020-05-23 United… GBR         England    Hertfords… &lt;NA&gt;           NA</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;  5 GBR_P… 2020-05-23 United… GBR         England    Leicester… &lt;NA&gt;           NA</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt;  6 GBR_P… 2020-05-23 United… GBR         England    Norfolk    &lt;NA&gt;           NA</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt;  7 GBR_P… 2020-05-23 United… GBR         England    Glouceste… &lt;NA&gt;           NA</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt;  8 GBR_P… 2020-05-23 United… GBR         England    Cambridge… &lt;NA&gt;           NA</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt;  9 GBR_P… 2020-05-23 United… GBR         England    Derbyshire &lt;NA&gt;           NA</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; 10 GBR_P… 2020-05-23 United… GBR         England    Westminst… &lt;NA&gt;           NA</span></span>
 <span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; # … with more rows, and 7 more variables: confirmed &lt;int&gt;, recovered &lt;int&gt;,</span></span>
 <span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt; #   dead &lt;int&gt;, hospitalised &lt;int&gt;, hospitalised_icu &lt;int&gt;, quarantined &lt;int&gt;,</span></span>
 <span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; #   gid &lt;chr&gt;</span></span></code></pre></div>

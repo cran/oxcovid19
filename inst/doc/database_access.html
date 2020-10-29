@@ -31,6 +31,54 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -343,10 +391,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; [16] &quot;GBR_PHE&quot;    &quot;GBR_PHS&quot;    &quot;GBR_PHTW&quot;   &quot;GBR_PHW&quot;    &quot;IDN_GTPPC&quot; </span></span>
 <span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; [21] &quot;IND_COVIND&quot; &quot;IRL_HSPC&quot;   &quot;IRQ_GOV&quot;    &quot;ITA_PC&quot;     &quot;ITA_PCDM&quot;  </span></span>
 <span id="cb1-16"><a href="#cb1-16"></a><span class="co">#&gt; [26] &quot;JPN_C1JACD&quot; &quot;KOR_DS4C&quot;   &quot;LAT_DSRP&quot;   &quot;LBN_GOV&quot;    &quot;MYS_MHYS&quot;  </span></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt; [31] &quot;NGA_CDC&quot;    &quot;NGA_SO&quot;     &quot;NLD_CW&quot;     &quot;PAK_GOV&quot;    &quot;POL_WIKI&quot;  </span></span>
-<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt; [36] &quot;PRT_MSDS&quot;   &quot;RUS_GOV&quot;    &quot;SAU_GOV&quot;    &quot;SWE_GM&quot;     &quot;SWE_SIR&quot;   </span></span>
-<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; [41] &quot;THA_STAT&quot;   &quot;TUR_MHOE&quot;   &quot;UAE_GOV&quot;    &quot;USA_CTP&quot;    &quot;USA_NYT&quot;   </span></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; [46] &quot;WRD_ECDC&quot;   &quot;WRD_WHO&quot;    &quot;WRD_WHOJHU&quot; &quot;ZAF_DSFSI&quot;</span></span></code></pre></div>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="co">#&gt; [31] &quot;NGA_CDC&quot;    &quot;NGA_SO&quot;     &quot;NLD_CW&quot;     &quot;PAK_GOV&quot;    &quot;POL_ROG&quot;   </span></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co">#&gt; [36] &quot;POL_WIKI&quot;   &quot;PRT_MSDS&quot;   &quot;RUS_GOV&quot;    &quot;SAU_GOV&quot;    &quot;SWE_GM&quot;    </span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co">#&gt; [41] &quot;SWE_SIR&quot;    &quot;THA_STAT&quot;   &quot;TUR_MHOE&quot;   &quot;UAE_GOV&quot;    &quot;USA_CTP&quot;   </span></span>
+<span id="cb1-20"><a href="#cb1-20"></a><span class="co">#&gt; [46] &quot;USA_NYT&quot;    &quot;WRD_ECDC&quot;   &quot;WRD_WHO&quot;    &quot;WRD_WHOJHU&quot; &quot;ZAF_DSFSI&quot;</span></span></code></pre></div>
 </div>
 <div id="data-for-single-source" class="section level3">
 <h3>Data for single source</h3>
@@ -389,16 +437,16 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; # Ordered by: desc(date)</span></span>
 <span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt;    source date       country countrycode adm_area_1 adm_area_2 adm_area_3</span></span>
 <span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     </span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;  1 GOOGL… 2020-08-07 United… GBR         Wales      Wrexham    &lt;NA&gt;      </span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;  2 GOOGL… 2020-08-07 United… GBR         Wales      Vale of G… &lt;NA&gt;      </span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;  3 GOOGL… 2020-08-07 United… GBR         Wales      Torfaen    &lt;NA&gt;      </span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt;  4 GOOGL… 2020-08-07 United… GBR         Wales      Swansea    &lt;NA&gt;      </span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;  5 GOOGL… 2020-08-07 United… GBR         Wales      Rhondda, … &lt;NA&gt;      </span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt;  6 GOOGL… 2020-08-07 United… GBR         Wales      Powys      &lt;NA&gt;      </span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt;  7 GOOGL… 2020-08-07 United… GBR         Wales      Pembrokes… &lt;NA&gt;      </span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt;  8 GOOGL… 2020-08-07 United… GBR         Wales      Newport    &lt;NA&gt;      </span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt;  9 GOOGL… 2020-08-07 United… GBR         Wales      Neath Por… &lt;NA&gt;      </span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; 10 GOOGL… 2020-08-07 United… GBR         Wales      Monmouths… &lt;NA&gt;      </span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;  1 GOOGL… 2020-10-09 United… GBR         Wales      Wrexham    &lt;NA&gt;      </span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;  2 GOOGL… 2020-10-09 United… GBR         Wales      Vale of G… &lt;NA&gt;      </span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;  3 GOOGL… 2020-10-09 United… GBR         Wales      Torfaen    &lt;NA&gt;      </span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt;  4 GOOGL… 2020-10-09 United… GBR         Wales      Swansea    &lt;NA&gt;      </span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;  5 GOOGL… 2020-10-09 United… GBR         Wales      Rhondda, … &lt;NA&gt;      </span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt;  6 GOOGL… 2020-10-09 United… GBR         Wales      Powys      &lt;NA&gt;      </span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt;  7 GOOGL… 2020-10-09 United… GBR         Wales      Pembrokes… &lt;NA&gt;      </span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt;  8 GOOGL… 2020-10-09 United… GBR         Wales      Newport    &lt;NA&gt;      </span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt;  9 GOOGL… 2020-10-09 United… GBR         Wales      Neath Por… &lt;NA&gt;      </span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt; 10 GOOGL… 2020-10-09 United… GBR         Wales      Monmouths… &lt;NA&gt;      </span></span>
 <span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; # … with more rows, and 10 more variables: transit_stations &lt;dbl&gt;,</span></span>
 <span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt; #   residential &lt;dbl&gt;, workplace &lt;dbl&gt;, parks &lt;dbl&gt;, retail_recreation &lt;dbl&gt;,</span></span>
 <span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; #   grocery_pharmacy &lt;dbl&gt;, gid &lt;chr&gt;, transit &lt;dbl&gt;, walking &lt;dbl&gt;,</span></span>
